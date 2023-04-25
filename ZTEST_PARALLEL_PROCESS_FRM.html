@@ -1,0 +1,120 @@
+<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZTEST_PARALLEL_PROCESS_FRM</title>
+<meta name="GENERATOR" content="AB4Editor Control" />
+<style type="text/css">
+SPAN {
+font-family: "Courier New";
+font-size: 10pt;
+color: #000000;
+background: #FFFFFF;
+}
+.L0S31 {
+font-style: italic;
+color: #808080;
+}
+.L0S32 {
+color: #3399FF;
+}
+.L0S33 {
+color: #4DA619;
+}
+.L0S52 {
+color: #0000FF;
+}
+.L0S55 {
+color: #800080;
+}
+.L0S70 {
+color: #808080;
+}
+</style>
+</head>
+<body>
+<span><span class="L0S31">*&amp;---------------------------------------------------------------------*</span><br>
+<span class="L0S31">*&amp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTEST_PARALLEL_PROCESS_FRM</span><br>
+<span class="L0S31">*&amp;---------------------------------------------------------------------*</span><br>
+<br>
+<span class="L0S52">FORM&nbsp;</span>prep_screen<span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S52">LOOP&nbsp;</span><span class="L0S52">AT&nbsp;</span><span class="L0S52">SCREEN</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">IF&nbsp;</span>r_creat&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S33">'X'&nbsp;</span><span class="L0S52">AND&nbsp;</span><span class="L0S52">screen</span><span class="L0S70">-</span>group1&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S33">'ID2'</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">screen</span><span class="L0S70">-</span><span class="L0S52">input&nbsp;</span><span class="L0S55">=&nbsp;</span><span class="L0S32">0</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">MODIFY&nbsp;</span><span class="L0S52">SCREEN</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">ELSEIF&nbsp;</span>r_modif&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S33">'X'&nbsp;</span><span class="L0S52">AND&nbsp;</span><span class="L0S52">screen</span><span class="L0S70">-</span>group1&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S33">'ID1'</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">screen</span><span class="L0S70">-</span><span class="L0S52">input&nbsp;</span><span class="L0S55">=&nbsp;</span><span class="L0S32">0</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">MODIFY&nbsp;</span><span class="L0S52">SCREEN</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">ENDIF</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S52">ENDLOOP</span><span class="L0S55">.</span><br>
+<span class="L0S52">ENDFORM</span><span class="L0S55">.</span><br>
+<span class="L0S52">FORM&nbsp;</span>readData<span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S52">CALL&nbsp;</span><span class="L0S52">FUNCTION&nbsp;</span><span class="L0S33">'F4_FILENAME'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">EXPORTING</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;field_name&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S33">'p_file_c'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">IMPORTING</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file_name&nbsp;&nbsp;<span class="L0S55">=&nbsp;</span>p_file_c<span class="L0S55">.</span><br>
+<br>
+&nbsp;&nbsp;<span class="L0S31">&quot;&nbsp;Convert&nbsp;Excel&nbsp;Data&nbsp;to&nbsp;SAP&nbsp;internal&nbsp;Table&nbsp;Data</span><br>
+&nbsp;&nbsp;<span class="L0S52">CALL&nbsp;</span><span class="L0S52">FUNCTION&nbsp;</span><span class="L0S33">'TEXT_CONVERT_XLS_TO_SAP'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">EXPORTING</span><br>
+<span class="L0S31">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_FIELD_SEPERATOR&nbsp;&nbsp;&nbsp;&nbsp;=</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_line_header&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S55">=&nbsp;</span>p_head<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_tab_raw_data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S55">=&nbsp;</span>it_raw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S31">&quot;&nbsp;WORK&nbsp;TABLE</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_filename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S55">=&nbsp;</span>p_file_c<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">TABLES</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_tab_converted_data&nbsp;<span class="L0S55">=&nbsp;</span>gt_datatab&nbsp;&nbsp;<span class="L0S31">&quot;ACTUAL&nbsp;DATA</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">EXCEPTIONS</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conversion_failed&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S32">1</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="L0S55">=&nbsp;</span><span class="L0S32">2</span><span class="L0S55">.</span><br>
+<br>
+&nbsp;&nbsp;<span class="L0S52">IF&nbsp;</span>sy<span class="L0S70">-</span>subrc&nbsp;&lt;&gt;&nbsp;<span class="L0S32">0</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">MESSAGE&nbsp;</span><span class="L0S52">ID&nbsp;</span>sy<span class="L0S70">-</span>msgid&nbsp;<span class="L0S52">TYPE&nbsp;</span>sy<span class="L0S70">-</span>msgty&nbsp;<span class="L0S52">NUMBER&nbsp;</span>sy<span class="L0S70">-</span>msgno<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">WITH&nbsp;</span>sy<span class="L0S70">-</span>msgv1&nbsp;sy<span class="L0S70">-</span>msgv2&nbsp;sy<span class="L0S70">-</span>msgv3&nbsp;sy<span class="L0S70">-</span>msgv4<span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S52">ENDIF</span><span class="L0S55">.</span><br>
+<br>
+<br>
+<span class="L0S52">ENDFORM</span><span class="L0S55">.</span><br>
+<br>
+<span class="L0S52">FORM&nbsp;</span>insertData<span class="L0S55">.</span><br>
+<br>
+&nbsp;&nbsp;<span class="L0S52">GET&nbsp;</span><span class="L0S52">RUN&nbsp;</span><span class="L0S52">TIME&nbsp;</span><span class="L0S52">FIELD&nbsp;</span>tstart<span class="L0S55">.</span><br>
+&nbsp;&nbsp;gv_task_name&nbsp;+=&nbsp;<span class="L0S32">1</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S31">&quot;Grabing&nbsp;data&nbsp;from&nbsp;the&nbsp;table&nbsp;and&nbsp;then&nbsp;insert&nbsp;it&nbsp;into&nbsp;the&nbsp;ztable</span><br>
+&nbsp;&nbsp;<span class="L0S52">DO</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">CALL&nbsp;</span><span class="L0S52">FUNCTION&nbsp;</span><span class="L0S33">'ZPARALLEL_FM'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">STARTING&nbsp;</span><span class="L0S52">NEW&nbsp;</span><span class="L0S52">TASK&nbsp;</span>gv_task_name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DESTINATION&nbsp;<span class="L0S52">IN&nbsp;</span><span class="L0S52">GROUP&nbsp;</span><span class="L0S33">'parallel_generators'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORMING&nbsp;result_capture&nbsp;<span class="L0S52">ON&nbsp;</span><span class="L0S52">END&nbsp;</span><span class="L0S52">OF&nbsp;</span><span class="L0S52">TASK</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">EXPORTING</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S55">=&nbsp;</span>gt_datatab<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">EXCEPTIONS</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;communication_failure&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S32">1&nbsp;</span><span class="L0S52">MESSAGE&nbsp;</span>lv_msg<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;system_failure&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S32">2&nbsp;</span><span class="L0S52">MESSAGE&nbsp;</span>lv_msg<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resource_failer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S32">3</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom_exception&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S32">4</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">CASE&nbsp;</span>sy<span class="L0S70">-</span>subrc<span class="L0S55">.</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">WHEN&nbsp;</span><span class="L0S32">1&nbsp;</span><span class="L0S52">OR&nbsp;</span><span class="L0S32">2&nbsp;</span><span class="L0S52">OR&nbsp;</span><span class="L0S32">3&nbsp;</span><span class="L0S52">OR&nbsp;</span><span class="L0S32">4</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">DATA</span><span class="L0S55">(</span>lv_error<span class="L0S55">)&nbsp;</span><span class="L0S55">=&nbsp;</span><span class="L0S33">'X'</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">WHEN&nbsp;</span><span class="L0S32">0</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_send_task&nbsp;<span class="L0S55">=&nbsp;</span>gv_send_task&nbsp;+&nbsp;<span class="L0S32">1</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">CLEAR&nbsp;</span>lv_error<span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">ENDCASE</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">IF&nbsp;</span>lv_error&nbsp;<span class="L0S52">IS&nbsp;</span><span class="L0S52">INITIAL</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">EXIT</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">ENDIF</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S52">ENDDO</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S52">GET&nbsp;</span><span class="L0S52">RUN&nbsp;</span><span class="L0S52">TIME&nbsp;</span><span class="L0S52">FIELD&nbsp;</span>tstop<span class="L0S55">.</span><br>
+<span class="L0S52">ENDFORM</span><span class="L0S55">.</span><br>
+<br>
+<br>
+<span class="L0S52">FORM&nbsp;</span>result_capture&nbsp;<span class="L0S52">USING&nbsp;</span>gv_task_name<span class="L0S55">.</span><br>
+<br>
+&nbsp;&nbsp;trun&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S55">(&nbsp;</span>tstop&nbsp;<span class="L0S70">-&nbsp;</span>tstart&nbsp;<span class="L0S55">)</span><span class="L0S55">.&nbsp;</span><span class="L0S31">&quot;/&nbsp;1000.&nbsp;formules&nbsp;pour&nbsp;milisecondes</span><br>
+&nbsp;&nbsp;<span class="L0S31">&quot;&nbsp;Record&nbsp;end&nbsp;time</span><br>
+<br>
+&nbsp;&nbsp;<span class="L0S52">WRITE</span><span class="L0S55">:&nbsp;</span>/&nbsp;<span class="L0S33">'Execution&nbsp;time:'</span><span class="L0S55">,&nbsp;</span>trun<span class="L0S55">,&nbsp;</span><span class="L0S33">'microsecondes'</span><span class="L0S55">.</span><br>
+<br>
+<span class="L0S31">*&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;'Data&nbsp;inserted&nbsp;succesfully'.</span><br>
+<span class="L0S52">ENDFORM</span><span class="L0S55">.</span></span>
+</body>

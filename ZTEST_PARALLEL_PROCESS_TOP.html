@@ -1,0 +1,58 @@
+<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZTEST_PARALLEL_PROCESS_TOP</title>
+<meta name="GENERATOR" content="AB4Editor Control" />
+<style type="text/css">
+SPAN {
+font-family: "Courier New";
+font-size: 10pt;
+color: #000000;
+background: #FFFFFF;
+}
+.L0S31 {
+font-style: italic;
+color: #808080;
+}
+.L0S32 {
+color: #3399FF;
+}
+.L0S33 {
+color: #4DA619;
+}
+.L0S52 {
+color: #0000FF;
+}
+.L0S55 {
+color: #800080;
+}
+.L0S70 {
+color: #808080;
+}
+</style>
+</head>
+<body>
+<span><span class="L0S31">*&amp;---------------------------------------------------------------------*</span><br>
+<span class="L0S31">*&amp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTEST_PARALLEL_PROCESS_TOP</span><br>
+<span class="L0S31">*&amp;---------------------------------------------------------------------*</span><br>
+<span class="L0S52">DATA&nbsp;</span><span class="L0S55">:&nbsp;</span>gt_datacmd&nbsp;<span class="L0S52">TYPE&nbsp;</span><span class="L0S52">TABLE&nbsp;</span><span class="L0S52">OF&nbsp;</span>string<span class="L0S55">.</span><br>
+<span class="L0S52">TYPE-POOLS</span><span class="L0S55">:&nbsp;</span>truxs<span class="L0S55">.</span><br>
+<span class="L0S52">DATA&nbsp;</span><span class="L0S55">:&nbsp;</span>p_head&nbsp;<span class="L0S52">VALUE&nbsp;</span><span class="L0S33">'X'</span><span class="L0S55">,</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_raw&nbsp;<span class="L0S52">TYPE&nbsp;&nbsp;</span>TRUXS_T_TEXT_DATA<span class="L0S55">.</span><br>
+<span class="L0S52">DATA&nbsp;</span><span class="L0S55">:&nbsp;</span>gt_datatab&nbsp;<span class="L0S52">TYPE&nbsp;</span><span class="L0S52">table&nbsp;</span><span class="L0S52">of&nbsp;</span>ZEMP_DATA<span class="L0S55">,</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_datatab&nbsp;<span class="L0S52">TYPE&nbsp;</span>ZEMP_DATA<span class="L0S55">.</span><br>
+<span class="L0S52">DATA&nbsp;</span><span class="L0S55">:&nbsp;</span>gt_datatab1&nbsp;<span class="L0S52">TYPE&nbsp;</span><span class="L0S52">table&nbsp;</span><span class="L0S52">of&nbsp;</span>ZEMP_DATA<span class="L0S55">,</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_datatab1&nbsp;<span class="L0S52">TYPE&nbsp;</span>ZEMP_DATA<span class="L0S55">.</span><br>
+<span class="L0S52">DATA&nbsp;</span><span class="L0S55">:&nbsp;</span>gv_itemNumber&nbsp;<span class="L0S52">TYPE&nbsp;</span>vbap<span class="L0S70">-</span>posnr<span class="L0S55">.</span><br>
+<span class="L0S52">DATA</span><span class="L0S55">:</span><br>
+&nbsp;&nbsp;tstart&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">TYPE&nbsp;</span><span class="L0S52">i</span><span class="L0S55">,</span><br>
+&nbsp;&nbsp;tstop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">TYPE&nbsp;</span><span class="L0S52">i</span><span class="L0S55">,</span><br>
+&nbsp;&nbsp;trun&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">TYPE&nbsp;</span><span class="L0S52">i</span><span class="L0S55">.</span><br>
+<br>
+<span class="L0S52">FIELD-SYMBOLS&nbsp;</span><span class="L0S55">:&nbsp;</span>&lt;runtime&gt;&nbsp;<span class="L0S52">TYPE&nbsp;</span><span class="L0S52">i</span><span class="L0S55">.</span><br>
+<span class="L0S52">DATA&nbsp;</span>lv_msg&nbsp;<span class="L0S52">VALUE&nbsp;</span><span class="L0S33">'Error'</span><span class="L0S55">.</span><br>
+&nbsp;<span class="L0S52">DATA&nbsp;</span><span class="L0S55">:&nbsp;</span>gv_task_name<span class="L0S55">(</span><span class="L0S32">4</span><span class="L0S55">)&nbsp;</span><span class="L0S52">TYPE&nbsp;</span>n<span class="L0S55">.</span><br>
+<br>
+&nbsp;<span class="L0S52">DATA&nbsp;</span><span class="L0S55">:&nbsp;</span>gv_rec_task&nbsp;<span class="L0S52">TYPE&nbsp;</span><span class="L0S52">i</span><span class="L0S55">,</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_send_task&nbsp;<span class="L0S52">TYPE&nbsp;</span><span class="L0S52">i</span><span class="L0S55">.</span></span>
+</body>

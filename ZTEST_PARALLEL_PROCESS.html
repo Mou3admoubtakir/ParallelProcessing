@@ -1,0 +1,66 @@
+<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ZTEST_PARALLEL_PROCESS</title>
+<meta name="GENERATOR" content="AB4Editor Control" />
+<style type="text/css">
+SPAN {
+font-family: "Courier New";
+font-size: 10pt;
+color: #000000;
+background: #FFFFFF;
+}
+.L0S31 {
+font-style: italic;
+color: #808080;
+}
+.L0S32 {
+color: #3399FF;
+}
+.L0S33 {
+color: #4DA619;
+}
+.L0S52 {
+color: #0000FF;
+}
+.L0S55 {
+color: #800080;
+}
+.L0S70 {
+color: #808080;
+}
+</style>
+</head>
+<body>
+<span><span class="L0S31">*&amp;---------------------------------------------------------------------*</span><br>
+<span class="L0S31">*&amp;&nbsp;Report&nbsp;ZTEST_PARALLEL_PROCESS</span><br>
+<span class="L0S31">*&amp;---------------------------------------------------------------------*</span><br>
+<span class="L0S31">*&amp;</span><br>
+<span class="L0S31">*&amp;---------------------------------------------------------------------*</span><br>
+<span class="L0S52">REPORT&nbsp;</span>ztest_parallel_process<span class="L0S55">.</span><br>
+<br>
+<br>
+<span class="L0S52">INCLUDE</span><span class="L0S55">:&nbsp;</span>ZTEST_PARALLEL_PROCESS_top<span class="L0S55">,</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTEST_PARALLEL_PROCESS_scr<span class="L0S55">,</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZTEST_PARALLEL_PROCESS_frm<span class="L0S55">.</span><br>
+<br>
+<span class="L0S52">INITIALIZATION</span><span class="L0S55">.</span><br>
+<br>
+<span class="L0S52">START-OF-SELECTION</span><span class="L0S55">.</span><br>
+<br>
+<br>
+<br>
+<span class="L0S52">AT&nbsp;</span><span class="L0S52">SELECTION-SCREEN&nbsp;</span><span class="L0S52">ON&nbsp;</span><span class="L0S52">VALUE-REQUEST&nbsp;</span><span class="L0S52">FOR&nbsp;</span>p_file_c<span class="L0S55">.</span><br>
+<br>
+&nbsp;&nbsp;<span class="L0S52">PERFORM&nbsp;</span>readData<span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S52">IF&nbsp;</span>gt_datatab&nbsp;<span class="L0S52">IS&nbsp;</span><span class="L0S52">NOT&nbsp;</span><span class="L0S52">INITIAL</span><span class="L0S55">.</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">PERFORM&nbsp;</span>insertData<span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S52">ENDIF</span><span class="L0S55">.</span><br>
+<br>
+&nbsp;&nbsp;<span class="L0S52">WAIT&nbsp;</span>UNTIL&nbsp;gv_rec_task&nbsp;&gt;=&nbsp;gv_send_task&nbsp;<span class="L0S52">UP&nbsp;</span><span class="L0S52">TO&nbsp;</span><span class="L0S33">'5'&nbsp;</span>SECONDS<span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S52">end-of-SELECTION</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S52">IF&nbsp;</span>sy<span class="L0S70">-</span>subrc&nbsp;<span class="L0S55">=&nbsp;</span><span class="L0S32">0</span><span class="L0S55">.</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="L0S52">PERFORM&nbsp;</span>result_capture&nbsp;<span class="L0S52">USING&nbsp;</span>gv_rec_task<span class="L0S55">.</span><br>
+&nbsp;&nbsp;<span class="L0S52">ENDIF</span><span class="L0S55">.</span></span>
+</body>
